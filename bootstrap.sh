@@ -1,12 +1,16 @@
-#!/bin/sh
+#!/bin/bash
 
 docker-compose up -d
-wait-for postgresql://postgres@localhost:5432/tutorial
-prep-it
+output=`docker port tornado_tutorial_postgres`
+export PG_PORT="${output#*:}"
 
-export TUTORIAL_HOST='localhost'
-export TUTORIAL_USER='postgres'
-export TUTORIAL_PORT='5432'
-export TUTORIAL_DBNAME='tutorial'
-export TUTORIAL_PASSWORD=''
-export PGSQL_TUTORIAL='postgresql://postgres@localhost:5432/tutorial'
+str="postgresql://postgres@localhost:${PG_PORT}/tutorial"
+export TUTORIAL_HOST="localhost"
+export TUTORIAL_USER="postgres"
+export TUTORIAL_PORT=$PG_PORT
+export TUTORIAL_DBNAME="tutorial"
+export TUTORIAL_PASSWORD=""
+export PGSQL_TUTORIAL="postgresql://postgres@localhost:${PG_PORT}/tutorial"
+
+wait-for $str
+prep-it
