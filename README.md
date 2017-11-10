@@ -8,9 +8,11 @@ A quick demo of Tornado, with basic endpoints & testing.
 Make sure you have docker running.
 This assumes you are using Docker for Mac.
 
-```virtualenv env```
-```pip install -r requires/development.txt```
-```source ./bootstrap.sh```
+```python
+virtualenv env
+pip install -r requires/development.txt
+source ./bootstrap.sh
+```
 
 ## Running the server
 
